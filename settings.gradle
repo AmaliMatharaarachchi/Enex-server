@@ -1,0 +1,21 @@
+rootProject.name = 'server'
+
+
+include 'web'
+
+
+
+include 'UserModule'
+
+
+
+include 'dbcontroller'
+
+
+
+include 'basicweb'
+
+
+
+
+

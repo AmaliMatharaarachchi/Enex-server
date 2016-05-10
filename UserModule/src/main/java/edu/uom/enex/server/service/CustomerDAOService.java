@@ -2,6 +2,7 @@ package edu.uom.enex.server.service;
 
 import edu.uom.enex.server.dao.CustomerDAOController;
 import edu.uom.enex.server.entity.Customer;
+import edu.uom.enex.server.entity.IndividualCustomer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,6 @@ public class CustomerDAOService {
         String customerId = new Date().getTime() + "";
         customer.setCustomerId(customerId);
         return customerDAOController.create(customer);
-
     }
 
     /**

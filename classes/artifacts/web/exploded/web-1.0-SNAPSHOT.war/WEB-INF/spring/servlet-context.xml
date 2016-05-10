@@ -73,5 +73,6 @@
     <beans:bean id="jsonMessageConverter"
                 class="edu.uom.enex.server.option.JsonMapper"/>
 
+  
 
 </beans:beans>

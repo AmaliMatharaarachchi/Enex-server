@@ -1,6 +1,7 @@
 package edu.uom.enex.server.controller;
 
 import edu.uom.enex.server.entity.Customer;
+import edu.uom.enex.server.entity.IndividualCustomer;
 import edu.uom.enex.server.service.CustomerDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ public class CustomerController {
     @Autowired
     private CustomerDAOService customerDAOService;
 
-    @RequestMapping(value = "ob", method = RequestMethod.GET,headers = "Accept=application/json")
+    @RequestMapping(value = "ob", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public Customer ob() {
         return new Customer();
@@ -33,8 +34,8 @@ public class CustomerController {
     @RequestMapping(value = "save", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage addCustomer(@RequestBody Customer customer) {
-        String res = customerDAOService.saveCustomer(customer);
         ResponseMessage responseMessage;
+        String res = customerDAOService.saveCustomer(customer);
         if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;
             responseMessage.setData(res);
@@ -42,11 +43,12 @@ public class CustomerController {
             responseMessage = ResponseMessage.DANGER;
             responseMessage.setData(res);
         }
+
         return responseMessage;
     }
 
     /**
-     * update Cuatomer
+     * update Customer
      *
      * @param customer
      * @return
@@ -81,14 +83,14 @@ public class CustomerController {
     @RequestMapping(value = "getCustomerByCustomerId", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public Customer getCustomerByCustomerId(@RequestParam("customerId") String customerId) {
-        Customer customer=customerDAOService.getCustomerByCustomerId(customerId);
+        Customer customer = customerDAOService.getCustomerByCustomerId(customerId);
         return customer;
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage deleteCustomer(@RequestParam("customerId") Customer customer) {
-        int res=customerDAOService.deleteCustomer(customer);
+        int res = customerDAOService.deleteCustomer(customer);
         ResponseMessage responseMessage;
         if (res != 0) {
             responseMessage = ResponseMessage.SUCCESS;

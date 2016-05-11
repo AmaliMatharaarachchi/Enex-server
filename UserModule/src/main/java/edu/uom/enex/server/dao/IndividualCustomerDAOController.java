@@ -16,4 +16,5 @@ public interface IndividualCustomerDAOController extends DAOController<Individua
     ArrayList<IndividualCustomer> getCreditCustomerList();
 
 
+    //String getLastCustomerId();
 }

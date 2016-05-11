@@ -18,12 +18,12 @@ public class CustomerController {
 
     @Autowired
     private CustomerDAOService customerDAOService;
-
-    @RequestMapping(value = "ob", method = RequestMethod.GET, headers = "Accept=application/json")
-    @ResponseBody
-    public Customer ob() {
-        return new Customer();
-    }
+//
+//    @RequestMapping(value = "ob", method = RequestMethod.GET, headers = "Accept=application/json")
+//    @ResponseBody
+//    public Customer ob() {
+//        return new Customer();
+//    }
 
     /**
      * save Customer
@@ -34,15 +34,15 @@ public class CustomerController {
     @RequestMapping(value = "save", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage addCustomer(@RequestBody Customer customer) {
-        ResponseMessage responseMessage;
-        String res = customerDAOService.saveCustomer(customer);
-        if (res != null) {
-            responseMessage = ResponseMessage.SUCCESS;
-            responseMessage.setData(res);
-        } else {
-            responseMessage = ResponseMessage.DANGER;
-            responseMessage.setData(res);
-        }
+        ResponseMessage responseMessage=ResponseMessage.SUCCESS;;
+//        String res = customerDAOService.saveCustomer(customer);
+//        if (res != null) {
+//            responseMessage = ResponseMessage.SUCCESS;
+//            responseMessage.setData(res);
+//        } else {
+//            responseMessage = ResponseMessage.DANGER;
+//            responseMessage.setData(res);
+//        }
 
         return responseMessage;
     }

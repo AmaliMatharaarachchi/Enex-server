@@ -1,9 +1,7 @@
 package edu.uom.enex.server.controller;
 
-import edu.uom.enex.server.entity.Customer;
 import edu.uom.enex.server.entity.IndividualCustomer;
 import edu.uom.enex.server.service.CustomerDAOService;
-import edu.uom.enex.server.service.IndividualCustomerDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +15,11 @@ import java.util.List;
 @RequestMapping("enex/individualCustomer")
 public class IndividualCustomerController {
 
+//    @Autowired
+//    private IndividualCustomerDAOService individualCustomerDAOService;
+
     @Autowired
-    private IndividualCustomerDAOService customerDAOService;
+    private CustomerDAOService customerDAOService;
 
     @RequestMapping(value = "ob", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
@@ -36,7 +37,7 @@ public class IndividualCustomerController {
     @ResponseBody
     public ResponseMessage addCustomer(@RequestBody IndividualCustomer customer) {
         ResponseMessage responseMessage;
-        String res = customerDAOService.saveCustomer(customer);
+        String res = customerDAOService.saveCustomer(customer,"IC");
         if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;
             responseMessage.setData(res);
@@ -84,7 +85,7 @@ public class IndividualCustomerController {
     @RequestMapping(value = "getCustomerByCustomerId", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public IndividualCustomer getCustomerByCustomerId(@RequestParam("customerId") String customerId) {
-        IndividualCustomer customer = customerDAOService.getCustomerByCustomerId(customerId);
+        IndividualCustomer customer = (IndividualCustomer) customerDAOService.getCustomerByCustomerId(customerId);
         return customer;
     }
 

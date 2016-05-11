@@ -9,10 +9,12 @@ import java.sql.Date;
  * Created by Himashi Nethinika on 4/2/2016.
  */
 
-
-public class Customer implements EntityInterface<String> {
+@MappedSuperclass
+@JsonIgnoreProperties(ignoreUnknown = true)
+public abstract class Customer implements EntityInterface<String> {
 
     private String customerId;
+    private String custId;
     private Date registeredDate;
     private String address;
     private String name;
@@ -21,13 +23,22 @@ public class Customer implements EntityInterface<String> {
     private String contactNo;
     private String salesRepresentative;
 
-
+    @Id
+    @Column(name = "customerId", nullable = false, insertable = true, updatable = true)
     public String getCustomerId() {
         return customerId;
     }
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
+    }
+
+    public String getCustId() {
+        return custId;
+    }
+
+    public void setCustId(String custId) {
+        this.custId = custId;
     }
 
     public Date getRegisteredDate() {
@@ -96,7 +107,8 @@ public class Customer implements EntityInterface<String> {
     public String toString() {
         return "Customer{" +
                 "customerId='" + customerId + '\'' +
-                ", registeredDate='" + registeredDate + '\'' +
+                ", custId='" + custId + '\'' +
+                ", registeredDate=" + registeredDate +
                 ", address='" + address + '\'' +
                 ", name='" + name + '\'' +
                 ", creditPeriod=" + creditPeriod +

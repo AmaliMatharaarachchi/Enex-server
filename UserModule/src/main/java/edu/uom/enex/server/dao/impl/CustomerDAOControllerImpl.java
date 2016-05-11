@@ -3,6 +3,7 @@ package edu.uom.enex.server.dao.impl;
 
 import edu.uom.enex.server.dao.CustomerDAOController;
 import edu.uom.enex.server.entity.Customer;
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -27,5 +28,23 @@ public class CustomerDAOControllerImpl extends AbstractDAOController<Customer,St
     @Override
     public ArrayList<Customer> getCreditCustomerList() {
         return null;
+    }
+
+    @Override
+    public String getLastCustomerId(String type) {
+        Query query = null;
+        if(type=="IC"){
+            query = getSession().createQuery("SELECT c.custId FROM IndividualCustomer c ORDER BY c.custId DESC");
+            query.setMaxResults(1);
+            return (String)query.uniqueResult();
+        }
+
+        if(type=="CC"){
+            query = getSession().createQuery("SELECT c.custId FROM CompanyCustomer c ORDER BY c.custId DESC");
+            query.setMaxResults(1);
+            return (String)query.uniqueResult();
+        }
+        return query.getQueryString();
+
     }
 }

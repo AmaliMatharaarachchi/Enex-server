@@ -37,18 +37,17 @@ public class ProductController {
         ResponseMessage responseMessage;
         if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;
-            responseMessage.setData(res);
         } else {
             responseMessage = ResponseMessage.DANGER;
-            responseMessage.setData(res);
         }
+        responseMessage.setData(res);
         return responseMessage;
     }
 
     @RequestMapping(value = "search", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public Product searchProduct(@RequestBody String productId) {
-        return productDAOService.searchProduct(productId);
+        return productDAOService.searchProductById(productId);
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST, headers = "Accept=application/json")
@@ -58,11 +57,12 @@ public class ProductController {
         ResponseMessage responseMessage;
         if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;
-            responseMessage.setData(res);
+
         } else {
             responseMessage = ResponseMessage.DANGER;
-            responseMessage.setData(res);
+
         }
+        responseMessage.setData(res);
         return responseMessage;
 
     }
@@ -74,11 +74,12 @@ public class ProductController {
         ResponseMessage responseMessage;
         if (res != 1) {
             responseMessage = ResponseMessage.SUCCESS;
-            responseMessage.setData(res);
+
         } else {
             responseMessage = ResponseMessage.DANGER;
-            responseMessage.setData(res);
+
         }
+        responseMessage.setData(res);
         return responseMessage;
     }
 
@@ -107,11 +108,12 @@ public class ProductController {
         ResponseMessage responseMessage;
         if (res != 1) {
             responseMessage = ResponseMessage.SUCCESS;
-            responseMessage.setData(res);
+
         } else {
             responseMessage = ResponseMessage.DANGER;
-            responseMessage.setData(res);
+
         }
+        responseMessage.setData(res);
         return responseMessage;
     }
 
@@ -122,11 +124,11 @@ public class ProductController {
         ResponseMessage responseMessage;
         if (res != 1) {
             responseMessage = ResponseMessage.SUCCESS;
-            responseMessage.setData(res);
+
         } else {
             responseMessage = ResponseMessage.DANGER;
-            responseMessage.setData(res);
         }
+        responseMessage.setData(res);
         return responseMessage;
     }
 
@@ -137,11 +139,12 @@ public class ProductController {
         ResponseMessage responseMessage;
         if (res != 1) {
             responseMessage = ResponseMessage.SUCCESS;
-            responseMessage.setData(res);
+
         } else {
             responseMessage = ResponseMessage.DANGER;
-            responseMessage.setData(res);
+
         }
+        responseMessage.setData(res);
         return responseMessage;
     }
 

@@ -12,6 +12,7 @@ import javax.persistence.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Product implements EntityInterface<String>{
     private String productId;
+    private String pId;
     private String description;
     private double cost;
     private double sellingPrice;
@@ -28,6 +29,9 @@ public class Product implements EntityInterface<String>{
     public void setProductId(String productId) {
         this.productId = productId;
     }
+    public String getpId() { return pId; }
+
+    public void setpId(String pId) {this.pId = pId;}
 
     public String getDescription() {
         return description;
@@ -79,6 +83,7 @@ public class Product implements EntityInterface<String>{
     public String toString() {
         return "Product{" +
                 "productId='" + productId + '\'' +
+                ", pId='" + pId + '\'' +
                 ", description='" + description + '\'' +
                 ", cost=" + cost +
                 ", sellingPrice=" + sellingPrice +

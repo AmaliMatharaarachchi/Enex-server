@@ -2,6 +2,7 @@ package edu.uom.enex.server.dao.impl;
 
 import edu.uom.enex.server.dao.ProductDAOController;
 import edu.uom.enex.server.entity.Product;
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -40,5 +41,14 @@ public class ProductDAOControllerImpl extends AbstractDAOController<Product, Str
     public ArrayList<Product> searchLowQtyProduct() {
         return null;
     }
+
+    @Override
+    public String getLastPId() {
+        Query query = null;
+        query = getSession().createQuery("SELECT c.pId FROM Product c ORDER BY c.pId DESC");
+        query.setMaxResults(1);
+        return (String)query.uniqueResult();
+    }
+
 
 }

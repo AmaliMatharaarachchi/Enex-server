@@ -22,4 +22,5 @@ public interface ProductDAOController extends DAOController<Product, String> {
 
     ArrayList<Product> searchLowQtyProduct();
 
+    String getLastPId();
 }

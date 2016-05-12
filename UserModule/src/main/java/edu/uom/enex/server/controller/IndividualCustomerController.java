@@ -37,7 +37,7 @@ public class IndividualCustomerController {
     @ResponseBody
     public ResponseMessage addCustomer(@RequestBody IndividualCustomer customer) {
         ResponseMessage responseMessage;
-        String res = customerDAOService.saveCustomer(customer,"IC");
+        String res = customerDAOService.saveCustomer(customer,"IC-");
         if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;
             responseMessage.setData(res);

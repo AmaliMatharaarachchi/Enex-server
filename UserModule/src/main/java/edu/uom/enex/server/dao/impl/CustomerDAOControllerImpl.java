@@ -33,18 +33,18 @@ public class CustomerDAOControllerImpl extends AbstractDAOController<Customer,St
     @Override
     public String getLastCustomerId(String type) {
         Query query = null;
-        if(type=="IC"){
+        if(type=="IC-"){
             query = getSession().createQuery("SELECT c.custId FROM IndividualCustomer c ORDER BY c.custId DESC");
             query.setMaxResults(1);
             return (String)query.uniqueResult();
         }
 
-        if(type=="CC"){
+        if(type=="CC-"){
             query = getSession().createQuery("SELECT c.custId FROM CompanyCustomer c ORDER BY c.custId DESC");
             query.setMaxResults(1);
             return (String)query.uniqueResult();
         }
-        return query.getQueryString();
+        return null;
 
     }
 }

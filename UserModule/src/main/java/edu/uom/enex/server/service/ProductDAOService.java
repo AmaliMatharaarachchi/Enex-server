@@ -1,13 +1,18 @@
 package edu.uom.enex.server.service;
 
+import edu.uom.enex.server.common.Hashids;
+import edu.uom.enex.server.common.IdGenerater;
+import edu.uom.enex.server.common.RandomString;
 import edu.uom.enex.server.dao.ProductDAOController;
 import edu.uom.enex.server.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Himashi Nethinika on 4/3/2016.
@@ -20,8 +25,15 @@ public class ProductDAOService {
 
 
     public String addProduct(Product product) {
-        String proId = new Date().getTime() + "";
-        product.setProductId(proId);
+        String productId = new Date().getTime() + "";
+        Hashids hashids = new Hashids(productId);
+        String hexaid = hashids.encodeHex(String.format("%040x", new BigInteger(1, productId.getBytes())));
+        String newid = hexaid + "" + new RandomString().randomString(10);
+        product.setProductId(newid);
+        String lastPId = getLastPId();
+        product.setpId(lastPId);
+
+
         return productDAOController.create(product);
     }
 
@@ -63,6 +75,13 @@ public class ProductDAOService {
 
     public ArrayList<Product> searchLowQtyProduct() {
         return productDAOController.searchLowQtyProduct();
+    }
+
+
+
+    private  String getLastPId(){
+        String id= productDAOController.getLastPId();
+        return new IdGenerater().generateId(id,"PI-");
     }
 
 }

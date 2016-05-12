@@ -2,6 +2,7 @@ package edu.uom.enex.server.service;
 
 import edu.uom.enex.server.common.Hashids;
 import edu.uom.enex.server.common.IdGenerater;
+import edu.uom.enex.server.common.RandomString;
 import edu.uom.enex.server.dao.CustomerDAOController;
 import edu.uom.enex.server.entity.Customer;
 import edu.uom.enex.server.entity.IndividualCustomer;
@@ -33,10 +34,10 @@ public class CustomerDAOService <T extends Customer>{
         String customerId = new Date().getTime() + "";
         Hashids hashids = new Hashids(customerId);
         String hexaid = hashids.encodeHex(String.format("%040x", new BigInteger(1, customerId.getBytes())));
-        String newid = hexaid + "" + randomString(10);
+        String newid = hexaid + "" + new RandomString().randomString(10);
         customer.setCustomerId(newid);
         String lastCustomerId = getLastCustomerId(type);
-        customer.setCustomerId(lastCustomerId);
+        customer.setCustId(lastCustomerId);
 
 
         return customerDAOController.create(customer);
@@ -75,19 +76,9 @@ public class CustomerDAOService <T extends Customer>{
         return customerDAOController.archive(customer);
     }
 
-    private String randomString(int len) {
-        final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        Random rnd = new Random();
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++)
-            sb.append(AB.charAt(rnd.nextInt(AB.length())));
-        return sb.toString();
-    }
-
     private  String getLastCustomerId(String type){
         String id= customerDAOController.getLastCustomerId(type);
         return new IdGenerater().generateId(id,type);
-//return "285443654363";
          }
 
 }

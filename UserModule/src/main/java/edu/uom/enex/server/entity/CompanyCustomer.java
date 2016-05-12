@@ -16,11 +16,6 @@ public class CompanyCustomer extends Customer implements EntityInterface<String>
     private String VAT;
     private String NBT;
 
-    public CompanyCustomer(String VAT, String NBT) {
-        super();
-        this.VAT = VAT;
-        this.NBT = NBT;
-    }
 
     public String getVAT() {
         return VAT;

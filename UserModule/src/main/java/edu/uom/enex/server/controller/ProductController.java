@@ -22,7 +22,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductDAOService daoService;
+    private ProductDAOService productDAOService;
 
     @RequestMapping(value = "ob", method = RequestMethod.GET)
     @ResponseBody
@@ -33,7 +33,7 @@ public class ProductController {
     @RequestMapping(value = "save", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage addProduct(@RequestBody Product product) {
-        String res = daoService.addProduct(product);
+        String res = productDAOService.addProduct(product);
         ResponseMessage responseMessage;
         if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;
@@ -48,13 +48,13 @@ public class ProductController {
     @RequestMapping(value = "search", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public Product searchProduct(@RequestBody String productId) {
-        return daoService.searchProduct(productId);
+        return productDAOService.searchProduct(productId);
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage updateProduct(@RequestBody Product product) {
-        String res = daoService.updateProduct(product);
+        String res = productDAOService.updateProduct(product);
         ResponseMessage responseMessage;
         if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;
@@ -70,7 +70,7 @@ public class ProductController {
     @RequestMapping(value = "delete", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage deleteProduct(@RequestBody Product product) {
-        int res = daoService.deleteProduct(product);
+        int res = productDAOService.deleteProduct(product);
         ResponseMessage responseMessage;
         if (res != 1) {
             responseMessage = ResponseMessage.SUCCESS;
@@ -85,25 +85,25 @@ public class ProductController {
     @RequestMapping(value = "getAvailable", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public ArrayList<Product> getAvailableProducts() {
-        return daoService.getAvailableProducts();
+        return productDAOService.getAvailableProducts();
     }
 
     @RequestMapping(value = "getAll", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public List<Product> getAllProducts() {
-        return daoService.getAllProducts();
+        return productDAOService.getAllProducts();
     }
 
     @RequestMapping(value = "getSelected", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public List<Product> getSelectedProducts(@RequestBody Date from, @RequestBody Date to) {
-        return daoService.getSelectedProducts(from, to);
+        return productDAOService.getSelectedProducts(from, to);
     }
 
     @RequestMapping(value = "decreaseQOH", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage decreaseItemQtyOnHand(@RequestBody String productId, double qty) {
-        int res = daoService.decreaseItemQtyOnHand(productId, qty);
+        int res = productDAOService.decreaseItemQtyOnHand(productId, qty);
         ResponseMessage responseMessage;
         if (res != 1) {
             responseMessage = ResponseMessage.SUCCESS;
@@ -118,7 +118,7 @@ public class ProductController {
     @RequestMapping(value = "increaseQtyOnHand", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage increaseQtyOnHand(@RequestBody String itemCode, @RequestBody double qty) {
-        int res = daoService.decreaseItemQtyOnHand(itemCode, qty);
+        int res = productDAOService.decreaseItemQtyOnHand(itemCode, qty);
         ResponseMessage responseMessage;
         if (res != 1) {
             responseMessage = ResponseMessage.SUCCESS;
@@ -133,7 +133,7 @@ public class ProductController {
     @RequestMapping(value = "updateCost", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage updateCost(String productId, double price) {
-        int res = daoService.updateCost(productId, price);
+        int res = productDAOService.updateCost(productId, price);
         ResponseMessage responseMessage;
         if (res != 1) {
             responseMessage = ResponseMessage.SUCCESS;
@@ -148,7 +148,7 @@ public class ProductController {
     @RequestMapping(value = "searchLowQtyProduct", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public ArrayList<Product> searchLowQtyProduct() {
-        return daoService.searchLowQtyProduct();
+        return productDAOService.searchLowQtyProduct();
     }
 
 }

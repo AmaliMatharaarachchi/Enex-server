@@ -19,7 +19,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost/enex"/>
         <property name="username" value="root"/>
-        <property name="password" value="himashi"/>
+        <property name="password" value="Inspiron@42"/>
     </bean>
 
     <!-- TODO 9: Define a bean named 'sessionFactory' that configures a test SessionFactory -->

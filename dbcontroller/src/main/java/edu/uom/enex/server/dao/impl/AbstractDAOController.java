@@ -78,6 +78,8 @@ public class AbstractDAOController<T extends EntityInterface, I extends Serializ
         return (T) getSession().get(entityType, (java.io.Serializable) id);
     }
 
+//    public T readByDate(I date) { return (T) getSession().get}
+
     @Override
     public List<T> getAll(int offset, int limit, String order) {
 

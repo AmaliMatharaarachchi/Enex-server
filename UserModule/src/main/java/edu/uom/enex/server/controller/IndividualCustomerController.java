@@ -82,12 +82,6 @@ public class IndividualCustomerController {
     }
 
 
-    @RequestMapping(value = "getCustomerByCustomerId", method = RequestMethod.GET, headers = "Accept=application/json")
-    @ResponseBody
-    public IndividualCustomer getCustomerByCustomerId(@RequestParam("customerId") String customerId) {
-        IndividualCustomer customer = (IndividualCustomer) customerDAOService.getCustomerByCustomerId(customerId);
-        return customer;
-    }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
@@ -103,6 +97,14 @@ public class IndividualCustomerController {
         }
         return responseMessage;
     }
+
+    @RequestMapping( value = "getCustomerByCustomerId", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public IndividualCustomer getCustomerByCustomerId(@RequestParam("customerId") String customerId) {
+        IndividualCustomer customer = (IndividualCustomer) customerDAOService.getCustomerByCustomerId(customerId);
+        return customer;
+    }
+
 
 
 }

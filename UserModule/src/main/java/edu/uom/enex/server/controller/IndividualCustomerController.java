@@ -1,5 +1,6 @@
 package edu.uom.enex.server.controller;
 
+import edu.uom.enex.server.entity.CompanyCustomer;
 import edu.uom.enex.server.entity.IndividualCustomer;
 import edu.uom.enex.server.service.CustomerDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +112,14 @@ public class IndividualCustomerController {
     public ArrayList<IndividualCustomer> getCustomerListByDate(@RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo) {
         ArrayList<IndividualCustomer> individualCustomerList =  customerDAOService.getCustomerListByDate(dateFrom, dateTo);
         return individualCustomerList;
+    }
+
+    @RequestMapping( value = "getCustomerByName", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ArrayList<IndividualCustomer> getCustomerByName(@RequestParam("customerName") String customerName) {
+
+        ArrayList<IndividualCustomer> IndividualCustomerList =  customerDAOService.getCustomerByName(customerName);
+        return IndividualCustomerList;
     }
 
 

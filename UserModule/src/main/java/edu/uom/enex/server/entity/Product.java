@@ -14,7 +14,6 @@ public class Product implements EntityInterface<String>{
     private String productId;
     private String pId;
     private String description;
-    private double cost;
     private double sellingPrice;
     private int qtyOnHand;
     private int reOrderLevel;
@@ -39,14 +38,6 @@ public class Product implements EntityInterface<String>{
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
     }
 
     public double getSellingPrice() {
@@ -85,7 +76,6 @@ public class Product implements EntityInterface<String>{
                 "productId='" + productId + '\'' +
                 ", pId='" + pId + '\'' +
                 ", description='" + description + '\'' +
-                ", cost=" + cost +
                 ", sellingPrice=" + sellingPrice +
                 ", qtyOnHand=" + qtyOnHand +
                 ", reOrderLevel=" + reOrderLevel +

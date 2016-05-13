@@ -20,7 +20,7 @@ public interface OrderDAOContoller extends DAOController<Order, String> {
 
     ArrayList<Order> searchOrderByCustName(String custName);
 
-    double productDiscount(double qty, String pproductId);
+    double productDiscount(double qty, String productId);
 
     int cancelOrder(String orderId, ArrayList<OrderDetail> detailList);
 
@@ -31,5 +31,7 @@ public interface OrderDAOContoller extends DAOController<Order, String> {
     ArrayList<Order> getSelectedCustomerOrders(Date from, Date to);
 
     void archiOldRecords();
+
+    String addOrder(Order order);
 }
 

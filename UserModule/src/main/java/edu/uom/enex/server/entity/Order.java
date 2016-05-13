@@ -10,7 +10,7 @@ import javax.persistence.*;
 @MappedSuperclass
 @Table(name = "order")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Order implements EntityInterface<String>{
+public abstract class Order implements EntityInterface<String>{
 
     private String orderId;
     private String customerId;

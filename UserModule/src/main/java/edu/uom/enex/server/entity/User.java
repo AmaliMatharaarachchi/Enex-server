@@ -10,7 +10,7 @@ import javax.persistence.*;
 @MappedSuperclass
 @Table(name = "user")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class User implements EntityInterface<String>{
+public abstract class User implements EntityInterface<String>{
     private String userId;
     private String userName;
     private String password;

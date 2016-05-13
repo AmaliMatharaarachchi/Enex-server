@@ -60,5 +60,10 @@ public class OrderDAOContollerImpl extends AbstractDAOController<Order, String> 
     public void archiOldRecords(){
 
     }
+
+    @Override
+    public String addOrder(Order order) {
+        return null;
+    }
 }
 

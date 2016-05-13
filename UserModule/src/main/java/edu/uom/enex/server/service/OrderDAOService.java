@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Himashi Nethinika on 4/7/16.
  */
 @Service
-public class OrderDAOService {
+public class OrderDAOService<T extends Order> {
 
     @Autowired
     private OrderDAOContoller orderDAOContoller;
@@ -70,4 +70,17 @@ public class OrderDAOService {
     }
 
 
+    public String addOrder(Order order) {
+        return orderDAOContoller.addOrder(order);
+    }
+
+//    public List<Order> searchUnpaidCreditOrder() {
+//
+//    }
+//
+//    public Order getCreditOrderById(String orderId) {
+//    }
+//
+//    public boolean isHaveUnsettleOrder(String orderId) {
+//    }
 }

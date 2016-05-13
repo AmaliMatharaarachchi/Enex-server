@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -71,6 +72,11 @@ public class CustomerDAOService <T extends Customer>{
     public T getCustomerByCustomerId(String customerId) {
         return (T)customerDAOController.read(customerId);
     }
+
+    public ArrayList<Customer> getCustomerListByDate(String dateFrom, String dateTo) {
+        return customerDAOController.getSelectedCustomers(dateTo, dateTo);
+    }
+
 
     public int deleteCustomer(Customer customer) {
         return customerDAOController.archive(customer);

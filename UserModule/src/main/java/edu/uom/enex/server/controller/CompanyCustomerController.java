@@ -112,5 +112,14 @@ public class CompanyCustomerController {
     }
 
 
+    @RequestMapping( value = "getCustomerByName", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ArrayList<CompanyCustomer> getCustomerByName(@RequestParam("customerName") String customerName) {
+
+        ArrayList<CompanyCustomer> CompanyCustomerList =  customerDAOService.getCustomerByName(customerName);
+        return CompanyCustomerList;
+    }
+
+
 
 }

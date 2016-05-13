@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +38,7 @@ public class IndividualCustomerController {
     @ResponseBody
     public ResponseMessage addCustomer(@RequestBody IndividualCustomer customer) {
         ResponseMessage responseMessage;
-        String res = customerDAOService.saveCustomer(customer,"IC-");
+        String res = customerDAOService.saveCustomer(customer,"IC");
         if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;
             responseMessage.setData(res);
@@ -103,6 +104,13 @@ public class IndividualCustomerController {
     public IndividualCustomer getCustomerByCustomerId(@RequestParam("customerId") String customerId) {
         IndividualCustomer customer = (IndividualCustomer) customerDAOService.getCustomerByCustomerId(customerId);
         return customer;
+    }
+
+    @RequestMapping( value = "getCustomerListByDate", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ArrayList<IndividualCustomer> getCustomerListByDate(@RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo) {
+        ArrayList<IndividualCustomer> individualCustomerList =  customerDAOService.getCustomerListByDate(dateFrom, dateTo);
+        return individualCustomerList;
     }
 
 

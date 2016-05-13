@@ -1,11 +1,13 @@
 package edu.uom.enex.server.controller;
 
 import edu.uom.enex.server.entity.CompanyCustomer;
+import edu.uom.enex.server.entity.IndividualCustomer;
 import edu.uom.enex.server.service.CustomerDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -101,6 +103,14 @@ public class CompanyCustomerController {
         }
         return responseMessage;
     }
+
+    @RequestMapping( value = "getCustomerListByDate", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ArrayList<CompanyCustomer> getCustomerListByDate(@RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo) {
+        ArrayList<CompanyCustomer> CompanyCustomerList =  customerDAOService.getCustomerListByDate(dateFrom, dateTo);
+        return CompanyCustomerList;
+    }
+
 
 
 }

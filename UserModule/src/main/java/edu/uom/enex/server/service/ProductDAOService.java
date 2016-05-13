@@ -37,8 +37,12 @@ public class ProductDAOService {
         return productDAOController.create(product);
     }
 
-    public Product searchProduct(String productId) {
+    public Product searchProductById(String productId) {
         return productDAOController.read(productId);
+    }
+
+    public Product searchProductByName(String productId) {
+        return productDAOController.searchProductByName(productId);
     }
 
     public String updateProduct(Product product) {
@@ -78,10 +82,9 @@ public class ProductDAOService {
     }
 
 
-
-    private  String getLastPId(){
-        String id= productDAOController.getLastPId();
-        return new IdGenerater().generateId(id,"PI-");
+    private String getLastPId() {
+        String id = productDAOController.getLastPId();
+        return new IdGenerater().generateId(id, "PI-");
     }
 
 }

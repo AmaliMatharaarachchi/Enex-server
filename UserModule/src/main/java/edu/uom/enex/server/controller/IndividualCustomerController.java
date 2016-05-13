@@ -130,6 +130,16 @@ public class IndividualCustomerController {
         return IndividualCustomerList;
     }
 
+    @RequestMapping( value = "getCustomersOfRep", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ArrayList<IndividualCustomer> getCustomersOfRep(@RequestParam("salesRepresentative") String salesRepresentative) {
+
+        ArrayList<IndividualCustomer> IndividualCustomerList =  customerDAOService.getRelevantCustomers(salesRepresentative);
+        return IndividualCustomerList;
+    }
+
+
+
 
 
 

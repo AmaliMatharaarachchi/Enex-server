@@ -26,10 +26,13 @@ public class CustomerDAOControllerImpl extends AbstractDAOController<Customer,St
     }
 
     @Override
-    public ArrayList<Customer> getCustomerList(String name) {
+    public ArrayList<Customer> getCustomerList(String value) {
+        String columnName = value;
+
+
         Query query = null;
 
-        query = getSession().createQuery("SELECT * FROM companyCustomer WHERE name=" + name);
+        query = getSession().createQuery("SELECT * FROM companyCustomer WHERE" + columnName +"=" + value);
         ArrayList<Customer> customerList = (ArrayList<Customer>) query.list();
 
         return customerList;

@@ -116,11 +116,20 @@ public class IndividualCustomerController {
 
     @RequestMapping( value = "getCustomerByName", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
-    public ArrayList<IndividualCustomer> getCustomerByName(@RequestParam("customerName") String customerName) {
+    public ArrayList<IndividualCustomer> getCustomerByName(@RequestParam("customerName") String name) {
 
-        ArrayList<IndividualCustomer> IndividualCustomerList =  customerDAOService.getCustomerByName(customerName);
+        ArrayList<IndividualCustomer> IndividualCustomerList =  customerDAOService.getRelevantCustomers(name);
         return IndividualCustomerList;
     }
+
+    @RequestMapping( value = "getCustomerByRegion", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ArrayList<IndividualCustomer> getCustomerByRegion(@RequestParam("region") String region) {
+
+        ArrayList<IndividualCustomer> IndividualCustomerList =  customerDAOService.getRelevantCustomers(region);
+        return IndividualCustomerList;
+    }
+
 
 
 

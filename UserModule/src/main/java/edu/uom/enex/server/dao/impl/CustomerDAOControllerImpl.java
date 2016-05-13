@@ -26,6 +26,16 @@ public class CustomerDAOControllerImpl extends AbstractDAOController<Customer,St
     }
 
     @Override
+    public ArrayList<Customer> getCustomerList(String name) {
+        Query query = null;
+
+        query = getSession().createQuery("SELECT * FROM companyCustomer WHERE name=" + name);
+        ArrayList<Customer> customerList = (ArrayList<Customer>) query.list();
+
+        return customerList;
+    }
+
+    @Override
     public String getLastCustomerId(String type) {
         Query query = null;
         if (type == "IC-") {
@@ -42,10 +52,10 @@ public class CustomerDAOControllerImpl extends AbstractDAOController<Customer,St
         return null;
     }
         @Override
-        public ArrayList<Customer> getSelectedCustomers(String From, String To) {
+        public ArrayList<Customer> getSelectedCustomers(String From, String Too) {
             Query query = null;
 
-            query = getSession().createQuery("SELECT * FROM IndividualCustomer WHERE registeredDate BETWEEN" + From + "AND" + To);
+            query = getSession().createQuery("SELECT * FROM IndividualCustomer WHERE registeredDate BETWEEN" + From + "AND" + Too);
             ArrayList<Customer> customerList = (ArrayList<Customer>) query.list();
 
             return customerList;

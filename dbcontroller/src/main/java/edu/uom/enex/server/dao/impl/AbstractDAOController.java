@@ -5,34 +5,34 @@ import edu.uom.enex.server.entity.EntityInterface;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.collection.internal.AbstractPersistentCollection;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.proxy.HibernateProxy;
+import org.hibernate.type.Type;
+import org.hibernate.validator.util.IdentitySet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
-import java.util.List;
-
-import org.hibernate.collection.internal.AbstractPersistentCollection;
-import org.hibernate.metadata.ClassMetadata;
-import org.hibernate.type.Type;
-import org.hibernate.validator.util.IdentitySet;
-
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
+
+
 /**
- * Created by Himashi Nethinika on 4/5/16.
+ * Created by Amali on 4/5/16.
  */
 @Transactional
 public class AbstractDAOController<T extends EntityInterface, I extends Serializable> implements DAOController<T, I> {
 
-    protected final Class<T> entityType;
-    protected final Class<I> idType;
+    private final Class<T> entityType;
+    private final Class<I> idType;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -49,11 +49,7 @@ public class AbstractDAOController<T extends EntityInterface, I extends Serializ
 
     @Override
     public I create(T entity) {
-        try {
-            getSession().persist(entity);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        getSession().persist(entity);
         return (I) entity.getId();
     }
 
@@ -65,30 +61,25 @@ public class AbstractDAOController<T extends EntityInterface, I extends Serializ
 
     @Override
     public int archive(T entity) {
-
         Session session = getSession();
-        session.merge(entity);
-
+        session.merge(entity);//Copy the state of the given object onto the persistent object with the same identifier
         session.delete(entity);
         return 0;
     }
 
     @Override
     public T read(I id) {
-        return (T) getSession().get(entityType, (java.io.Serializable) id);
+        return (T) getSession().get(entityType, id);//Return the persistent instance of the given entity class with the given identifier
     }
-
-//    public T readByDate(I date) { return (T) getSession().get}
 
     @Override
     public List<T> getAll(int offset, int limit, String order) {
-
         Criteria criteria = getSession().createCriteria(entityType);
         criteria.setFirstResult(offset);
         criteria.setMaxResults(limit);
         criteria.addOrder(Order.asc(order));
-
-
+        //.addOrder---> add order to the result set
+        //.asc(Order)---> create a new Ascending order
         return criteria.list();
     }
 
@@ -96,6 +87,8 @@ public class AbstractDAOController<T extends EntityInterface, I extends Serializ
     public List<T> getAllListById(Long id, String propertyName) {
         Criteria criteria = getSession().createCriteria(entityType);
         criteria.add(Restrictions.eq(propertyName, id));
+        //add(Criterion)
+        //.eq(...)--> Apply an "equal" constraint to the named property---> return SimpleExpression instance(SimpleExpression implements Criterion)
         return criteria.list();
     }
 
@@ -116,7 +109,10 @@ public class AbstractDAOController<T extends EntityInterface, I extends Serializ
 
         Criteria criteria = getSession().createCriteria(entityType);
         criteria.setProjection(Projections.rowCount());
+        //Add a {@link Criterion restriction} to constrain the results to be retrieved.
+        //projection.rowCount()--> == count(*)
         return (Long) criteria.uniqueResult();
+        //.uniqueResult()--> Convenience method to return a single instance that matches the query
     }
 
     @Override
@@ -129,11 +125,14 @@ public class AbstractDAOController<T extends EntityInterface, I extends Serializ
     public void detach(Object entity) {
 
 // Check for lazy-loading proxies
-        if (entity instanceof HibernateProxy) {
+        if (entity instanceof HibernateProxy) {// checking whether mentioned entity is in the db
+            //HibernateProxy=Marker interface for entity proxies
             SessionImplementor sessionImplementor = ((HibernateProxy) entity)
                     .getHibernateLazyInitializer().getSession();
+            // .getHibernateLazyInitializer()-->Get the underlying lazy initialization handler.
             if (sessionImplementor instanceof Session) {
                 ((Session) sessionImplementor).evict(entity);
+                //.evict(...)---> Remove this instance from the session cache
             }
 
             return;

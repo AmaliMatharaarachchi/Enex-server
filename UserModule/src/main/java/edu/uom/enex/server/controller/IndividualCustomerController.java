@@ -1,5 +1,6 @@
 package edu.uom.enex.server.controller;
 
+import edu.uom.enex.server.entity.CompanyCustomer;
 import edu.uom.enex.server.entity.IndividualCustomer;
 import edu.uom.enex.server.service.CustomerDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +113,33 @@ public class IndividualCustomerController {
         ArrayList<IndividualCustomer> individualCustomerList =  customerDAOService.getCustomerListByDate(dateFrom, dateTo);
         return individualCustomerList;
     }
+
+    @RequestMapping( value = "getCustomerByName", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ArrayList<IndividualCustomer> getCustomerByName(@RequestParam("customerName") String name) {
+
+        ArrayList<IndividualCustomer> IndividualCustomerList =  customerDAOService.getRelevantCustomers(name);
+        return IndividualCustomerList;
+    }
+
+    @RequestMapping( value = "getCustomerByRegion", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ArrayList<IndividualCustomer> getCustomerByRegion(@RequestParam("region") String region) {
+
+        ArrayList<IndividualCustomer> IndividualCustomerList =  customerDAOService.getRelevantCustomers(region);
+        return IndividualCustomerList;
+    }
+
+    @RequestMapping( value = "getCustomersOfRep", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ArrayList<IndividualCustomer> getCustomersOfRep(@RequestParam("salesRepresentative") String salesRepresentative) {
+
+        ArrayList<IndividualCustomer> IndividualCustomerList =  customerDAOService.getRelevantCustomers(salesRepresentative);
+        return IndividualCustomerList;
+    }
+
+
+
 
 
 

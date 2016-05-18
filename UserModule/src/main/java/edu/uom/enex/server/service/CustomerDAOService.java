@@ -87,4 +87,7 @@ public class CustomerDAOService <T extends Customer>{
         return new IdGenerater().generateId(id,type);
          }
 
+    public ArrayList<Customer> getRelevantCustomers(String value) {
+        return customerDAOController.getCustomerList(value);
+    }
 }

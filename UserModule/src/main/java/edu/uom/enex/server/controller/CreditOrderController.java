@@ -2,6 +2,7 @@ package edu.uom.enex.server.controller;
 
 import edu.uom.enex.server.entity.CreditOrder;
 import edu.uom.enex.server.entity.Order;
+import edu.uom.enex.server.service.CreditOrderDAOService;
 import edu.uom.enex.server.service.OrderDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,10 @@ public class CreditOrderController {
 
     @Autowired
     private OrderDAOService orderDAOService;
+
+    @Autowired
+    private CreditOrderDAOService creditOrderDAOService;
+
 
     @RequestMapping(value = "ob", method = RequestMethod.GET)
     @ResponseBody
@@ -43,20 +48,20 @@ public class CreditOrderController {
     @RequestMapping(value = "getUnpaidOrders", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public List<Order> searchUnpaidCreditOrder() {
-        return orderDAOService.searchUnpaidCreditOrder();
+        return creditOrderDAOService.searchUnpaidCreditOrder();
     }
 
 
     @RequestMapping(value = "getCreditOrder", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public Order getCreditOrder(@RequestParam("orderId") String orderId) {
-        return orderDAOService.getCreditOrderById(orderId);
+        return creditOrderDAOService.getCreditOrderById(orderId);
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public boolean isHaveUnsettleOrder(@RequestParam("orderId") String orderId) {
-        return  orderDAOService.isHaveUnsettleOrder(orderId);
+        return  creditOrderDAOService.isHaveUnsettleOrder(orderId);
     }
 
 }

@@ -7,10 +7,10 @@ import javax.persistence.*;
 /**
  * Created by Himashi Nethinika on 4/2/2016.
  */
-@MappedSuperclass
+@Entity
 @Table(name = "user")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class User implements EntityInterface<String>{
+public class User implements EntityInterface<String>{
     private String userId;
     private String userName;
     private String password;

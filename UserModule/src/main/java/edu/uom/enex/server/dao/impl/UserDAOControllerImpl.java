@@ -2,7 +2,11 @@ package edu.uom.enex.server.dao.impl;
 
 import edu.uom.enex.server.dao.UserDAOController;
 import edu.uom.enex.server.entity.User;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Created by Himashi Nethinika on 4/3/2016.
@@ -14,16 +18,25 @@ public class UserDAOControllerImpl extends AbstractDAOController<User, String> i
         super(User.class, String.class);
     }
 
-    public boolean isHaveUser(User user) {
-        return false;
-    }
-
     public int getPrivilege(String username, String password) {
         return 0;
     }
 
-    public int updatePassword(User user) {
-        return 0;
+    @Override
+    public String getuserAvailability(String userName, String ep,String privilage) {
+        Criteria criteria = getSession().createCriteria(entityType);
+        criteria.add(Restrictions.eq("username", userName));
+        criteria.add(Restrictions.eq("password", ep));
+        criteria.add(Restrictions.eq("privilege", privilage));
+        if ( criteria.list().size()>0) {
+            User o = (User) criteria.list().get(0);
+            if (o != null) {
+                return o.getId();
+            } else {
+                return null;
+            }
+        }else {
+            return null;
+        }
     }
-
 }

@@ -7,10 +7,8 @@ import edu.uom.enex.server.entity.User;
  */
 public interface UserDAOController extends DAOController<User, String> {
 
-    boolean isHaveUser(User user);
 
     int getPrivilege(String username, String password);
 
-    int updatePassword(User user);
-
+    String getuserAvailability(String userName, String ep,String privilage);
 }

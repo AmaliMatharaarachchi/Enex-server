@@ -1,7 +1,7 @@
 package edu.uom.enex.server.controller;
 
 import edu.uom.enex.server.entity.User;
-import edu.uom.enex.server.modle.UserModel;
+import edu.uom.enex.server.model.UserModel;
 import edu.uom.enex.server.service.UserDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

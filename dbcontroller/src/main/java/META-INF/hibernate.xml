@@ -4,10 +4,10 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:mysql://localhost/enex</property>
+    <property name="connection.url">jdbc:mysql://localhost/Enex</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="connection.username">root</property>
-    <property name="connection.password">himashi</property>
+    <property name="connection.password">mysql</property>
 
 
       <!-- DB schema will be updated if needed -->

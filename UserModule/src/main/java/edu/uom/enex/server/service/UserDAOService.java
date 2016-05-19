@@ -3,7 +3,6 @@ package edu.uom.enex.server.service;
 import edu.uom.enex.server.common.IdGenerater;
 import edu.uom.enex.server.dao.UserDAOController;
 import edu.uom.enex.server.entity.User;
-import edu.uom.enex.server.modle.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

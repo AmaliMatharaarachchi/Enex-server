@@ -2,7 +2,6 @@ package edu.uom.enex.server.service;
 
 import edu.uom.enex.server.common.Hashids;
 import edu.uom.enex.server.common.IdGenerater;
-import edu.uom.enex.server.common.RandomString;
 import edu.uom.enex.server.dao.ProductDAOController;
 import edu.uom.enex.server.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Himashi Nethinika on 4/3/2016.

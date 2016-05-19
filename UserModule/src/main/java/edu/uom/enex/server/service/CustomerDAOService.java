@@ -2,8 +2,6 @@ package edu.uom.enex.server.service;
 
 import edu.uom.enex.server.common.Hashids;
 import edu.uom.enex.server.common.IdGenerater;
-import edu.uom.enex.server.common.RandomString;
-import edu.uom.enex.server.dao.CompanyCustomerDAOController;
 import edu.uom.enex.server.dao.CustomerDAOController;
 import edu.uom.enex.server.dao.IndividualCustomerDAOController;
 import edu.uom.enex.server.entity.CompanyCustomer;
@@ -16,7 +14,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Himashi Nethinika on 4/7/16.

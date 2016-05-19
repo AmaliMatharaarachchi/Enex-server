@@ -13,7 +13,6 @@ import java.util.Date;
  * Created by Himashi Nethinika on 4/3/2016.
  */
 
-@
 @Repository
 public class ProductDAOControllerImpl extends AbstractDAOController<Product, String> implements ProductDAOController {
 
@@ -59,6 +58,11 @@ public class ProductDAOControllerImpl extends AbstractDAOController<Product, Str
         query = getSession().createQuery("SELECT c.pId FROM Product c ORDER BY c.pId DESC");
         query.setMaxResults(1);
         return (String) query.uniqueResult();
+    }
+
+    @Override
+    public Product searchProductByName(String productName) {
+        return null;
     }
 
 

@@ -1,13 +1,11 @@
 package edu.uom.enex.server.controller;
 
 import edu.uom.enex.server.entity.User;
+import edu.uom.enex.server.modle.UserModel;
 import edu.uom.enex.server.service.UserDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,22 +19,22 @@ public class UserController {
     @Autowired
     private UserDAOService daoService;
 
-    @RequestMapping(value = "ob", method = RequestMethod.GET)
-    @ResponseBody
-    public User ob() {
-        return new User();
-    }
 
     @RequestMapping(value = "checkUser", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
-    public boolean isHaveUser(@RequestBody User user) {
-        return daoService.isHaveUser(user);
+    public UserModel isHaveUser(@RequestParam("userName") String userName, @RequestParam("ep") String ep, @RequestParam("privilege") String privilege) {
+        String res = daoService.userAvailability(userName, ep, privilege);
+        UserModel userModel = new UserModel();
+        if (res != null) {
+            userModel.setUserId(res);
+        }
+        return userModel;
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage addUser(@RequestBody User user) {
-        String res = daoService.addUser(user);
+        String res = daoService.addUser(user, "U-");
         ResponseMessage responseMessage;
         if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;
@@ -50,8 +48,14 @@ public class UserController {
 
     @RequestMapping(value = "getAll", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
-    public List<User> getAllUsers() {
+    public List<UserModel> getAllUsers() {
         return daoService.getAllUsers();
+    }
+
+    @RequestMapping(value = "getAllByType", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public List<User> getAlUsersByType(@RequestParam("privilege") int privilege) {
+        return daoService.getAllUsers(privilege);
     }
 
     @RequestMapping(value = "getPrivilege", method = RequestMethod.POST, headers = "Accept=application/json")
@@ -63,9 +67,9 @@ public class UserController {
     @RequestMapping(value = "updatePassword", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage updatePassword(@RequestBody User user) {
-        int res = daoService.updatePassword(user);
+        String res = daoService.updatePassword(user);
         ResponseMessage responseMessage;
-        if (res != 1) {
+        if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;
             responseMessage.setData(res);
         } else {
@@ -74,5 +78,12 @@ public class UserController {
         }
         return responseMessage;
     }
+
+    @RequestMapping(value = "ob", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public User getUserOb() {
+        return new User();
+    }
+
 
 }

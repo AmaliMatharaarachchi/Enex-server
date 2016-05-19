@@ -17,7 +17,6 @@ public abstract class Order implements EntityInterface<String>{
     private String issueDate;
     private int validity;
     private double amount;
-//    private List<OrderDetail> orderDetaliList;
 
     @Id
     @Column(name = "orderId", nullable = false, insertable = true, updatable = true)

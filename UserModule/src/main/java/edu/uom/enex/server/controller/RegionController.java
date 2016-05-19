@@ -31,7 +31,7 @@ public class RegionController {
     @RequestMapping(value = "save", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage addRegion(@RequestBody Region region) {
-        String res = daoService.addRegion(region);
+        String res = daoService.addRegion(region,"R-");
         ResponseMessage responseMessage;
         if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;

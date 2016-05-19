@@ -1,6 +1,7 @@
 package edu.uom.enex.server.service;
 
 
+import edu.uom.enex.server.common.IdGenerater;
 import edu.uom.enex.server.dao.RegionDAOController;
 import edu.uom.enex.server.entity.Region;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,9 @@ public class RegionDAOService {
     @Autowired
     private RegionDAOController regionDAOController;
 
-    public String addRegion(Region region) {
+    public String addRegion(Region region,String type) {
+        String lastRegionId = getLastRegionId(type);
+        region.setRegId(lastRegionId);
         return regionDAOController.create(region);
     }
 
@@ -36,6 +39,11 @@ public class RegionDAOService {
 
     public List<Region> getAllRegions() {
         return regionDAOController.getAll();
+    }
+
+    private String getLastRegionId(String type) {
+        String id = regionDAOController.getLastRegionId(type);
+        return new IdGenerater().generateId(id, type);
     }
 
 

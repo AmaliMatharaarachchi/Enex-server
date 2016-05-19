@@ -67,7 +67,7 @@ public class AbstractDAOController<T extends EntityInterface, I extends Serializ
     public int archive(T entity) {
 
         Session session = getSession();
-        session.merge(entity);
+        //session.merge(entity);
 
         session.delete(entity);
         return 0;

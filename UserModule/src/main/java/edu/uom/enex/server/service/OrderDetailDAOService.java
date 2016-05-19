@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Himashi Nethinika on 4/7/16.
@@ -17,18 +18,33 @@ public class OrderDetailDAOService {
     @Autowired
     private OrderDetailDAOController orderDetailDAOController;
 
-    public String saveOrderDetail(OrderDetail orderDetail) {
+    /**
+     * add  new order detail
+     *
+     * @param orderDetail
+     * @return
+     */
+    public String addOrderDetail(OrderDetail orderDetail) {
         String detailId = new Date().getTime() + "";
         orderDetail.setOrderDetailId(detailId);
         return orderDetailDAOController.create(orderDetail);
 
     }
 
+    /**
+     * get last orderDetailId
+     *
+     * @return
+     */
     public String getLastOrderDetailId() {
-        return orderDetailDAOController.getLastOrderDetailId();
+        Long allCount = orderDetailDAOController.getAllCount();
+        List<OrderDetail> all = orderDetailDAOController.getAll();
+        OrderDetail orderDetail = all.get(allCount.intValue());
+        return orderDetail.getId();
+
     }
 
-    public ArrayList<OrderDetail> searchOrderDetail(String orderId) {
+    public List<OrderDetail> searchOrderDetail(String orderId) {
         return orderDetailDAOController.searchOrderDetail(orderId);
     }
 

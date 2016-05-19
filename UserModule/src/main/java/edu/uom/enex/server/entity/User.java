@@ -7,17 +7,17 @@ import javax.persistence.*;
 /**
  * Created by Himashi Nethinika on 4/2/2016.
  */
-@MappedSuperclass
+@Entity
 @Table(name = "user")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class User implements EntityInterface<String>{
+public class User implements EntityInterface<String>{
     private String userId;
     private String userName;
     private String password;
-    private String privilege;
+    private int privilege;
     private String name;
     private String address;
-    private int contactNo;
+    private String contactNo;
 
     @Id
     @Column(name = "userId", nullable = false, insertable = true, updatable = true)
@@ -45,11 +45,11 @@ public abstract class User implements EntityInterface<String>{
         this.password = password;
     }
 
-    public String getPrivilege() {
+    public int getPrivilege() {
         return privilege;
     }
 
-    public void setPrivilege(String privilege) {
+    public void setPrivilege(int privilege) {
         this.privilege = privilege;
     }
 
@@ -69,11 +69,11 @@ public abstract class User implements EntityInterface<String>{
         this.address = address;
     }
 
-    public int getContactNo() {
+    public String getContactNo() {
         return contactNo;
     }
 
-    public void setContactNo(int contactNo) {
+    public void setContactNo(String contactNo) {
         this.contactNo = contactNo;
     }
 

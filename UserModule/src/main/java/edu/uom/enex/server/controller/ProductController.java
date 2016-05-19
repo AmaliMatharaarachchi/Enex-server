@@ -120,7 +120,7 @@ public class ProductController {
     @RequestMapping(value = "increaseQtyOnHand", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage increaseQtyOnHand(@RequestBody String itemCode, @RequestBody double qty) {
-        int res = productDAOService.decreaseItemQtyOnHand(itemCode, qty);
+        int res = productDAOService.increaseQtyOnHand(itemCode, qty);
         ResponseMessage responseMessage;
         if (res != 1) {
             responseMessage = ResponseMessage.SUCCESS;

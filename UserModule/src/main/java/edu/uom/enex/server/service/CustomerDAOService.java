@@ -3,7 +3,10 @@ package edu.uom.enex.server.service;
 import edu.uom.enex.server.common.Hashids;
 import edu.uom.enex.server.common.IdGenerater;
 import edu.uom.enex.server.common.RandomString;
+import edu.uom.enex.server.dao.CompanyCustomerDAOController;
 import edu.uom.enex.server.dao.CustomerDAOController;
+import edu.uom.enex.server.dao.IndividualCustomerDAOController;
+import edu.uom.enex.server.entity.CompanyCustomer;
 import edu.uom.enex.server.entity.Customer;
 import edu.uom.enex.server.entity.IndividualCustomer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +22,16 @@ import java.util.Random;
  * Created by Himashi Nethinika on 4/7/16.
  */
 @Service
-public class CustomerDAOService <T extends Customer>{
+public class CustomerDAOService<T extends Customer> {
 
     @Autowired
     private CustomerDAOController customerDAOController;
+
+    @Autowired
+    private IndividualCustomerDAOController individualCustomerDAOController;
+
+    @Autowired
+    private CompanyCustomerDAOController companyCustomerDAOController;
 
     /**
      * save customer
@@ -30,7 +39,7 @@ public class CustomerDAOService <T extends Customer>{
      * @param customer
      * @return
      */
-    public String saveCustomer(T customer , String type) {
+    public String saveCustomer(T customer, String type) {
 
         String customerId = new Date().getTime() + "";
         Hashids hashids = new Hashids(customerId);
@@ -63,14 +72,36 @@ public class CustomerDAOService <T extends Customer>{
         return customerDAOController.getAll();
     }
 
+
+    /**
+     * getAll customers
+     *
+     * @return
+     */
+    public List<CompanyCustomer> getAllCompanyCustomers() {
+        return companyCustomerDAOController.getAll();
+    }
+
+
+    /**
+     * getAll customers
+     *
+     * @return
+     */
+    public List<IndividualCustomer> getAllIndividualCustomers() {
+        return individualCustomerDAOController.getAll();
+    }
+
+
     /**
      * get customer by id
      *
      * @param customerId
      * @return
      */
-    public T getCustomerByCustomerId(String customerId) {
-        return (T)customerDAOController.read(customerId);
+    public Customer getCustomerByCustomerId(String customerId) {
+
+        return customerDAOController.read(customerId);
     }
 
     public ArrayList<Customer> getCustomerListByDate(String dateFrom, String dateTo) {
@@ -82,9 +113,12 @@ public class CustomerDAOService <T extends Customer>{
         return customerDAOController.archive(customer);
     }
 
-    private  String getLastCustomerId(String type){
-        String id= customerDAOController.getLastCustomerId(type);
-        return new IdGenerater().generateId(id,type);
-         }
+    private String getLastCustomerId(String type) {
+        String id = customerDAOController.getLastCustomerId(type);
+        return new IdGenerater().generateId(id, type);
+    }
 
+    public List<Customer> getCustomerByName(String name) {
+        return customerDAOController.getAllCustomerByName(name);
+    }
 }

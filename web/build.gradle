@@ -9,7 +9,8 @@ dependencies {
     compile project(':basicweb')
     compile project(':dbcontroller')
     compile project(':UserModule')
-  
+    compile project(':main')
+
 
 
 

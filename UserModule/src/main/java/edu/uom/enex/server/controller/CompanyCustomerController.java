@@ -1,6 +1,7 @@
 package edu.uom.enex.server.controller;
 
 import edu.uom.enex.server.entity.CompanyCustomer;
+import edu.uom.enex.server.entity.Customer;
 import edu.uom.enex.server.entity.IndividualCustomer;
 import edu.uom.enex.server.service.CustomerDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,8 +78,19 @@ public class CompanyCustomerController {
      */
     @RequestMapping(value = "getAll", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
-    public List<CompanyCustomer> getAllCustomers() {
+    public List<Customer> getAllCustomers() {
         return customerDAOService.getAllCustomers();
+    }
+
+    /**
+     * get all Customers
+     *
+     * @return
+     */
+    @RequestMapping(value = "getAllCompanyCustomers", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public List<CompanyCustomer> getAllCompanyCustomers() {
+        return customerDAOService.getAllCompanyCustomers();
     }
 
 
@@ -91,7 +103,7 @@ public class CompanyCustomerController {
 
     @RequestMapping(value = "delete", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
-    public ResponseMessage deleteCustomer(@RequestParam("customerId") CompanyCustomer customer) {
+    public ResponseMessage deleteCustomer(@RequestBody CompanyCustomer customer) {
         int res = customerDAOService.deleteCustomer(customer);
         ResponseMessage responseMessage;
         if (res != 0) {

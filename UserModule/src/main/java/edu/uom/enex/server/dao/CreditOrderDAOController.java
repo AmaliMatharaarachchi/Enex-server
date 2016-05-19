@@ -12,6 +12,7 @@ public interface CreditOrderDAOController extends DAOController<CreditOrder, Str
 
     boolean isHaveUnsettleOrder(String custId);
 
-    ArrayList<Order> searchUnpaidCreditOrder();
+    ArrayList<CreditOrder> searchUnpaidCreditOrder();
 
+    String getLastCreditOrderId(String type);
 }

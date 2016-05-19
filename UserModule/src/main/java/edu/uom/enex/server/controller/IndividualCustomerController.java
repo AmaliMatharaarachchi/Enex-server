@@ -1,5 +1,6 @@
 package edu.uom.enex.server.controller;
 
+import edu.uom.enex.server.entity.Customer;
 import edu.uom.enex.server.entity.IndividualCustomer;
 import edu.uom.enex.server.service.CustomerDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,6 @@ import java.util.List;
 @Controller
 @RequestMapping("enex/individualCustomer")
 public class IndividualCustomerController {
-
-//    @Autowired
-//    private IndividualCustomerDAOService individualCustomerDAOService;
-
     @Autowired
     private CustomerDAOService customerDAOService;
 
@@ -38,7 +35,7 @@ public class IndividualCustomerController {
     @ResponseBody
     public ResponseMessage addCustomer(@RequestBody IndividualCustomer customer) {
         ResponseMessage responseMessage;
-        String res = customerDAOService.saveCustomer(customer,"IC");
+        String res = customerDAOService.saveCustomer(customer, "IC-");
         if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;
             responseMessage.setData(res);
@@ -78,15 +75,25 @@ public class IndividualCustomerController {
      */
     @RequestMapping(value = "getAll", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
-    public List<IndividualCustomer> getAllCustomers() {
+    public List<Customer> getAllCustomers() {
         return customerDAOService.getAllCustomers();
     }
 
+    /**
+     * get all Customers
+     *
+     * @return
+     */
+    @RequestMapping(value = "getAllIndividualCustomers", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public List<IndividualCustomer> getAllIndividualCustomers() {
+        return customerDAOService.getAllIndividualCustomers();
+    }
 
 
     @RequestMapping(value = "delete", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
-    public ResponseMessage deleteCustomer(@RequestParam("customerId") IndividualCustomer customer) {
+    public ResponseMessage deleteCustomer(@RequestBody Customer customer) {
         int res = customerDAOService.deleteCustomer(customer);
         ResponseMessage responseMessage;
         if (res != 0) {
@@ -99,20 +106,26 @@ public class IndividualCustomerController {
         return responseMessage;
     }
 
-    @RequestMapping( value = "getCustomerByCustomerId", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "getCustomerByCustomerId", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public IndividualCustomer getCustomerByCustomerId(@RequestParam("customerId") String customerId) {
         IndividualCustomer customer = (IndividualCustomer) customerDAOService.getCustomerByCustomerId(customerId);
         return customer;
     }
 
-    @RequestMapping( value = "getCustomerListByDate", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "getCustomerByName", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
-    public ArrayList<IndividualCustomer> getCustomerListByDate(@RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo) {
-        ArrayList<IndividualCustomer> individualCustomerList =  customerDAOService.getCustomerListByDate(dateFrom, dateTo);
-        return individualCustomerList;
+    public List<Customer> getCustomerByName(@RequestParam("name") String name) {
+        List<Customer> customerList = customerDAOService.getCustomerByName(name);
+        return customerList;
     }
 
+    @RequestMapping(value = "getCustomerListByDate", method = RequestMethod.GET, headers = "Accept=application/json")
+    @ResponseBody
+    public ArrayList<IndividualCustomer> getCustomerListByDate(@RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo") String dateTo) {
+        ArrayList<IndividualCustomer> individualCustomerList = customerDAOService.getCustomerListByDate(dateFrom, dateTo);
+        return individualCustomerList;
+    }
 
 
 }

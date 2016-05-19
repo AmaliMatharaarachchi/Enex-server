@@ -20,18 +20,18 @@ import java.util.List;
 public class OrderDetailController {
 
     @Autowired
-    private OrderDetailDAOService daoService;
+    private OrderDetailDAOService orderDetailDAOService;
 
-    @RequestMapping(value = "ob", method = RequestMethod.GET)
-    @ResponseBody
-    public CreditOrder ob() {
-        return new CreditOrder();
-    }
-
+    /**
+     * save new order detail
+     *
+     * @param orderDetail
+     * @return
+     */
     @RequestMapping(value = "save", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
     public ResponseMessage saveOrderDetail(@RequestBody OrderDetail orderDetail) {
-        String res = daoService.saveOrderDetail(orderDetail);
+        String res = orderDetailDAOService.addOrderDetail(orderDetail);
         ResponseMessage responseMessage;
         if (res != null) {
             responseMessage = ResponseMessage.SUCCESS;
@@ -43,16 +43,22 @@ public class OrderDetailController {
         return responseMessage;
     }
 
-    @RequestMapping(value = "searchOrderDetail", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "searchOrderDetailByOrderId", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public List<OrderDetail> searchOrderDetail(@RequestBody String orderId) {
-        return daoService.searchOrderDetail(orderId);
+        return orderDetailDAOService.searchOrderDetail(orderId);
     }
 
     @RequestMapping(value = "getLastOrderDetailId", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public String getLastOrderDetailId() {
-        return daoService.getLastOrderDetailId();
+        return orderDetailDAOService.getLastOrderDetailId();
+    }
+
+    @RequestMapping(value = "ob", method = RequestMethod.GET)
+    @ResponseBody
+    public CreditOrder ob() {
+        return new CreditOrder();
     }
 
 
